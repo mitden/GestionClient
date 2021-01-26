@@ -17,13 +17,25 @@ namespace GestionClient
         public Client Client { get; set; }
         public bool Success { get; set; }
 
-        public ClientForm()
+        public ClientForm(Client model)
         {
+
+            this.Client = model;
              _context = new ClientContext();
 
             InitializeComponent();
+            remplirForm();
+
         }
 
+
+        private void remplirForm() {
+
+             this.NomTB.Text =  this.Client.Nom;
+             this.PrenomTB.Text = this.Client.Prenom;
+             this.TelephoneTB.Text = this.Client.Telephone;
+
+        }
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -42,8 +54,17 @@ namespace GestionClient
             this.Client.Telephone = this.TelephoneTB.Text;
             try {
 
-                this._context.Clients.Add(Client);
-                this._context.SaveChanges();
+
+               
+                //if(Client.Code != 0)
+                //{
+                
+                //}
+                //else
+                //{
+                //    this._context.Clients.Local.Add(Client);
+                //}
+                //this._context.SaveChanges();
 
                 this.Success = true;
                 this.Close();
