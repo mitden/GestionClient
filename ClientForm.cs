@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -54,7 +55,19 @@ namespace GestionClient
             this.Client.Telephone = this.TelephoneTB.Text;
             try {
 
+                if (this.FormIsValid()) { 
+                
+                
+                this.Success = true;
+                this.Close();
 
+
+                }
+                else
+                {
+                    this.Success = false;
+                    MessageBox.Show("Erreur:  Le formulaire est incomplet!");
+                }
                
                 //if(Client.Code != 0)
                 //{
@@ -66,16 +79,24 @@ namespace GestionClient
                 //}
                 //this._context.SaveChanges();
 
-                this.Success = true;
-                this.Close();
 
             }
             catch
             {
                 this.Success = false;
-                MessageBox.Show("Erreur");
+                MessageBox.Show("Erreur: Le formulaire est incorrect!");
             }
         
+        }
+
+
+        private bool FormIsValid()
+        {
+           if(this.Client.Nom == null|| this.Client.Nom.Trim().Equals("")|| this.Client.Prenom == null || this.Client.Prenom.Trim().Equals("")|| this.Client.Telephone == null || this.Client.Telephone.Trim().Equals("")|| !Regex.IsMatch(this.Client.Telephone.Trim(), @"^\d+$"))
+            {
+                return false;
+            }
+            return true;
         }
 
         private void NomTB_TextChanged(object sender, EventArgs e)

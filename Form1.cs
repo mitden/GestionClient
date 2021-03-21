@@ -44,7 +44,7 @@ namespace GestionClient
         private void AddClientBTN_Click(object sender, EventArgs e)
         {
             ClientForm clientForm = new ClientForm(new Client());
-            
+            clientForm.Text = "Ajouter un client";
             clientForm.ShowDialog();
             if (clientForm.Success)
             {
@@ -63,6 +63,7 @@ namespace GestionClient
             Console.WriteLine("Modifier  : " + client.Nom + " " + client.Prenom);
 
             ClientForm clientForm = new ClientForm(client);
+            clientForm.Text = "Modifier un client";
             clientForm.ShowDialog();
             if (clientForm.Success)
             {
@@ -113,7 +114,7 @@ namespace GestionClient
         {
             if (this.SearchTerm.TextLength > 0)
             {
-                this.dataGridView1.DataSource = _context.Clients.Local.Where(c => c.Prenom.Contains(SearchTerm.Text) || c.Nom.Contains(SearchTerm.Text)).ToList();
+                this.dataGridView1.DataSource = _context.Clients.Local.Where(c => c.Prenom.ToLower().Contains(SearchTerm.Text.ToLower()) || c.Nom.ToLower().Contains(SearchTerm.Text.ToLower())).ToList();
                 this.button1.Visible = true;
             }
         }
